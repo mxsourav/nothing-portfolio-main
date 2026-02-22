@@ -536,9 +536,8 @@ function pickProjectImage(repo) {
 }
 
 function pickProjectDemo(repo) {
-  const ov = PROJECT_OVERRIDES?.[repo.name];
-  const demo = (ov?.demo || "").trim();
-  return demo ? demo : (repo.homepage || "").trim();
+  // Auto-generate GitHub Pages URL for every repo
+  return `https://${GH_USERNAME}.github.io/${repo.name}/`;
 }
 
 function isPinned(repoName) {
@@ -559,7 +558,7 @@ function repoCard(repo, langs) {
 
   const demo = pickProjectDemo(repo);
   const demoBtn = demo
-    ? `<a href="${safeText(demo)}" target="_blank" rel="noopener" class="btn-system btn-tiny">Live Demo</a>`
+    ? `<a href="${safeText(demo)}" target="_blank" rel="noopener" class="btn-system btn-tiny">Preview</a>`
     : "";
 
   return `
@@ -716,11 +715,13 @@ async function loadGitHub() {
 function initTypewriter() {
   const target = document.getElementById("status-text");
   const phrases = [
-    "Okay",
-    "Here",
-    "Now",
-    "Fine",
-    "Ready",
+    "Online",
+    "Available",
+    "Debugging code",
+    "Designing stuff",
+    "Crafting projects",
+    "Pentesting",
+    "Always Ready",
   ];
 
   let i = 0;
